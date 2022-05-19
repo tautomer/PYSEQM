@@ -27,7 +27,8 @@ RAISE_ERROR_IF_SCF_BACKWARD_FAILS = False
 RAISE_ERROR_IF_SCF_FORWARD_FAILS = False
 #if true, raise error rather than ignore those non-convered molecules
 
-def kernel(rh0,xi):
+def kernel(mol, xi):
+
     # kernel of TDHF equations
     # 
     # xi Li(xi) == > L_ij
