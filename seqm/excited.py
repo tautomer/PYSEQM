@@ -27,30 +27,83 @@ RAISE_ERROR_IF_SCF_BACKWARD_FAILS = False
 RAISE_ERROR_IF_SCF_FORWARD_FAILS = False
 #if true, raise error rather than ignore those non-convered molecules
 
-def kernel(mol, xi):
 
-    # kernel of TDHF equations
-    # 
-    # xi Li(xi) == > L_ij
-    # Li = [F[rho0],x] + [V(xi),rho0]
-    #
-    # Vxi in A.O.
-    # one-body in M.O.
-    # 
-    # (A,   B) (x)  
-    # (-B, -A) (y)
-
-    #1) build Vxi in A.O.
-
-    #2) tansform Vxi from AO TO MO
-    # V^\dag A_AO V  --> A_MO
-    # 
-    #) add one-body term
+def Vxi(mol, xi):
 
     return None
 
+def tdhf_operator(mol, xi, method='rpa'):
+    '''
+    TDHF equations
+    or RPA/CIS Liouville kernel
 
-def Davidson(xi,matvec):
+    corresponds to Lxi_testing subroutine in NEXMD fortran code
+    
+    xi Li(xi) == > L_ij
+    Li = [F[rho0],x] + [V(xi),rho0]
+    
+    Vxi in A.O.
+    one-body in M.O.
+    
+    (A,   B) (x)  
+    (-B, -A) (y)
+
+    '''
+    nocc = mol.nocc
+    nvir = mol.nvir
+    norb = mol.norb
+    ncis = nocc * nvir
+
+    #1) build Vxi in A.O.
+    xi_ao = mo2ao(mol, xi)
+    V_ao = Vxi(mol, xi_ao)
+    
+    # if solvent is required, add solvent (TODO)
+    
+    #2) tansform Vxi from AO TO MO
+    # V^\dag A_AO V  --> A_MO
+
+    V_mo = ao2mo(mol, V_ao)
+
+
+    '''
+    add one-body term 
+    in MO representation: (epsilon_i - epsilon_a)\delta_{ij}\delta_{ab}
+    '''
+    i = 0
+    for p in range(nocc):
+        for h in range(nocc+1, norb):
+            de  = mol.ehf[h] - mol.ehf[p]
+            V_mol[i] += de * xi[i]
+            V_mol[i+Ncis] = - V[i+Ncis] - de * xi[i]
+            i += 1
+
+    return V_mol
+
+class TDHF():
+    
+    def kernel(mol, x0 = None):
+
+        # set precondition
+        precond = None
+
+        if x0 is None:
+            # set initial condition
+            x0 = None (TODO)
+
+
+
+        matvec = lambda vec: [tdhf_operator(mol, x) for x in vec]
+
+        converged, evals, evecs = davidson(x0, precond, matvec,
+                tol = self.conv_tol,
+                nroots = nstates,
+                maxcycle = self.maxcycle)
+        
+        return evals, evecs
+
+
+def Davidson(xi, precond, matvec, tol, nroots, maxcycle):
 
     
     """
@@ -79,6 +132,8 @@ def Davidson(xi,matvec):
    #
        return None
     """
+
+    # ref: JCP xx
 
 
 
