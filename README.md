@@ -1,6 +1,6 @@
-# [PYSEQM: PYtorch-based Semi-Empirical Quantum Mechanics](https://github.com/lanl/PYSEQM)
+# [PYNEXMD: PYthon-based non-adiabatic molecular dynamics package](https://github.com/lanl/PYNEXMD)
 
-[PYSEQM](https://github.com/lanl/PYSEQM) is a Semi-Empirical Quantum Mechanics package implemented in [PyTorch](http://pytorch.org). It provides built-in interfaces for machine learning and efficient molecular dynamic engines with GPU supported. Several molecular dynamics algorithms are implemented for facilitating dynamic simulations, inlcuding orginal and Extended Lagrangian Born-Oppenheimer Molecular Dynamics, geometric optimization and  several thermostats. 
+[PYNEXMD](https://github.com/lanl/PYNEXMD) is a PYthon-based Nonadiabatic EXcited-State Molecular Dynamics package that leverages the [PyTorch](http://pytorch.org) and BML library for off-loading caculations on GPUs and/or heterogeneous exascale computing facilities. It provides build-in Semi-Empirical Quantum Mechanics method for electronic structures and interface to other first-principles packages (DFTB, PYSCF). It provides built-in interfaces for machine learning and efficient molecular dynamic engines with GPU supported. Several molecular Adiabatic and Non-adiabatic dynamics algorithms are implemented for facilitating dynamic simulations, inlcuding orginal and Extended Lagrangian Born-Oppenheimer Molecular Dynamics, geometric optimization, trajectory surface hopping, ab-initio multiple cloning, Ehrenfest dynamics.  
 
 <hr/>
 
@@ -8,26 +8,33 @@
 
 * Interface with machine learning (ML) framework like [HIPNN](https://aip.scitation.org/doi/abs/10.1063/1.5011181) for ML applications and development.
 * GPU-supported Molecular Dynamics Engine
-* Stable and Efficient Extended Lagrangian Born Oppenheimer Molecular Dynamics ([XL-BOMD](https://aip.scitation.org/doi/full/10.1063/1.3148075))
+* Off-load on heterogeneous exascale computing architecture via BML lib
 * Efficient expansion algorithm [SP2](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.66.155115) for generating density matrix
-
+* Stable and Efficient Extended Lagrangian Born Oppenheimer Molecular Dynamics ([XL-BOMD](https://aip.scitation.org/doi/full/10.1063/1.3148075))
+* Trajectory surface hopping 
+* Ab-initio multiple cloning
+* Light-matter interaction
+* Time-dependent density functional tight-binding 
 
 ## Installation:
 
 ```bash
-git clone https://github.com/lanl/PYSEQM.git
-cd PYSEQM
+git clone https://github.com/lanl/PYNEXMD.git (TO be relaesed there)
+cd PYNEXMD
 python setup.py install
 ```
 or
 ```bash
-pip install git+https://github.com/lanl/PYSEQM.git
+pip install git+https://github.com/lanl/PYNEXMD.git
 ```
 
 To enable GPU with CUDA, please refer to the Installation Guide on [PyTorch website](https://pytorch.org/)
 
 ## Prerequisites:
 * PyTorch>=1.2
+
+## optional package
+* BML ()
 
 ## Usage:
 see [```./doc/documentation.md```](./doc/documentation.md)
@@ -36,15 +43,16 @@ see [```./doc/documentation.md```](./doc/documentation.md)
 1. MNDO
 2. AM1
 3. PM3
+4. DFTB
 
 <hr/>
 
 ## Authors:
 
-[Guoqing Zhou](mailto:guoqingz@usc.edu), [Benjamin Nebgen](mailto:bnebgen@lanl.gov), Nicholas Lubbers, Walter Malone, Anders M. N. Niklasson and Sergei Tretiak
+[Yu Zhang](mailto:zhy@lanl.gov), [Xinyang Li](mailto:lix@lanl.gov], [Guoqing Zhou](mailto:guoqingz@usc.edu), [Benjamin Nebgen](mailto:bnebgen@lanl.gov), Nicholas Lubbers, Anders M. N. Niklasson and Sergei Tretiak
 
 ## Citation:
-[Zhou, Guoqing, et al. "Graphics processing unit-accelerated semiempirical Born Oppenheimer molecular dynamics using PyTorch." *Journal of Chemical Theory and Computation* 16.8 (2020): 4951-4962.](https://pubs.acs.org/doi/full/10.1021/acs.jctc.0c00243)
+TBA
 
 ## Acknowledgments:
 Los Alamos National Lab (LANL), Center for Nonlinear Studies (CNLS), T-1
