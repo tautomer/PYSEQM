@@ -15,7 +15,18 @@
 # Author: Yu Zhang zhy@lanl.gov
 #
 
-from pynexmd.es import hf
-from pynexmd.es import tdhf
+
+import numpy
+import os, sys
+
+from pynexmd import lib
+from pynexmd import mole
+
+class TDHF(lib.StreamObject):
+
+
+    '''
+    '''
+
 
 
