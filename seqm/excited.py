@@ -42,7 +42,9 @@ def tdhf_operator(mol, xi, method='rpa'):
     
     xi Li(xi) == > L_ij
     Li = [F[rho0],x] + [V(xi),rho0]
-    
+             part1         part2
+
+    part1 in MO (epsilon_a - epsilon_i) \delta_{iajb}
     Vxi in A.O.
     one-body in M.O.
     
@@ -103,6 +105,15 @@ class TDHF():
         
         return evals, evecs
 
+def matvec_model(N,x):
+    A = random matrix
+    for i range(N):
+       A[i,i] = 1.0
+       A[i,i+1] = -1.0
+       A[i+1,i] = -1.0
+
+    return np.einsum('ij,j->i', A, x)
+
 
 def Davidson(xi, precond, matvec, tol, nroots, maxcycle):
 
@@ -135,6 +146,4 @@ def Davidson(xi, precond, matvec, tol, nroots, maxcycle):
     """
 
     # ref: JCP xx
-
-
 
