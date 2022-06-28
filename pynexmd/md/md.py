@@ -15,5 +15,9 @@
 # Author: Yu Zhang zhy@lanl.gov
 #
 
-from pynexmd.md import md
+class MD():
+
+
+
+    return None
 

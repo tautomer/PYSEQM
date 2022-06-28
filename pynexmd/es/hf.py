@@ -18,6 +18,7 @@
 import os, sys
 from pynexmd import lib
 from pynexmd import mole
+from pynexmd import __config__
 
 # For code compatibility in python-2 and python-3
 if sys.version_info >= (3,):
@@ -50,12 +51,88 @@ def get_fock():
 class HF(lib.StreamObject):
 
     '''
+    ground state SCF base class (RHF)
+
+    verbose: int
+
+    chkfile: str
+    conv_tol : float
+    max_cycle: int
+    init_guess: str
+
+    DIIS: DIIS class
+    diis: 
+    diis_space: init
+
+    diis_start_crit: float (trigger diis only when error < crit)
+
+    diis_scf: bool
+
+    converged : bool
+    etot: float
+    mo_energy: orbiatl energies
+    mo_occ: occupation number
+    mo_coeff: orbital coefficients
 
     '''
+    conv_tol = getattr(__config__, 'SCF_conv_tol', 1e-9)
+    conv_tol_grad = getattr(__config__, 'SCF_conv_tol_grad', None)
+    max_cycle = getattr(__config__, 'SCF_max_cycle', 50)
+
+    def __init__(self, mol):
+
+        self.mol = mol
+        self.mo_energy = None
+        self.mo_occ = None
+        self.mo_coeff = None
+        self.nocc = None
+        self.nvir = None
+        self.solvent = None
+
+        self.etot = 0.0
+
+    def scf(self):
+
+        return None  
+
+    def get_hcore(self):
+
+        return None
+
+    def get_veff(self):
+
+        return None
+
+    def ao2mo(self):
+
+        return None
+
+    def mo2ao(self):
+
+        return None
+
+    def get_etot(self):
+        # if scf is already finised
+        return self.etot
+        # else run scf
+
 
 class UHF(HF):
 
+    def __init__(self, mol):
+        hf.HF.__init__(self, mol)
+        self.nelec = None
+        self.nalpha = None
+        self.nbeta = None
 
-    return None
+    def s2(self):
+        'return <s^2>'
 
+        return None
+
+    def get_veff(mol, dm):
+        '''
+        unrestricted HF matrix of alpha and beta spins
+
+        '''
 

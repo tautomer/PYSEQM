@@ -13,8 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pyscf.gto import mole
-from pyscf.data import nist
+from pynexmd.data import nist
 
 # nuclear magneton are taken from http://easyspin.org/documentation/isotopetable.html
 # isotopemass, spin, nuclearg-factor
@@ -117,30 +116,6 @@ ISOTOPE_GYRO = (
     ((243, 5./2,         0.6),),  # Am
     ((247, 9./2,         0.0),),  # Cm
 )
-
-
-def g_factor_to_gyromagnetic_ratio(g):
-    '''Larmor freq in Hz'''
-    return nist.NUC_MAGNETON/nist.PLANCK * g
-
-def get_nuc_g_factor(symb_or_charge, mass=None):
-    if isinstance(symb_or_charge, str):
-        Z = mole.charge(symb_or_charge)
-    else:
-        Z = symb_or_charge
-# g factor of other isotopes can be found in file nuclear_g_factor.dat
-    if mass is None:
-        # The default isotopes
-        nuc_spin, g_nuc = ISOTOPE_GYRO[Z][0][1:3]
-    else:
-        for isotop_mass, nuc_spin, g_nuc in ISOTOPE_GYRO[Z]:
-            if isotop_mass == mass:
-                break
-        else:
-            raise ValueError('mass=%s not found in isotopes of %s' %
-                             (mass, symb_or_charge))
-    #gyromag = g_factor_to_gyromagnetic_ratio(g_nuc)
-    return g_nuc
 
 
 # Nuclear electric quadrupole moments

@@ -581,8 +581,6 @@ NRSRHF_CONFIGURATION = [
 
 # This is No. of shells, not the atomic configuations
 #     core       core+valence
-# core+valence = lambda nuc, l: \
-#            int(numpy.ceil(pyscf.lib.parameters.ELEMENTS[nuc][2][l]/(4*l+2.)))
 N_CORE_SHELLS = [
     '0s0p0d0f',         #  0  GHOST
     '0s0p0d0f',         #  1  H

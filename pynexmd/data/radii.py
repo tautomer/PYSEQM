@@ -14,7 +14,7 @@
 # limitations under the License.
 
 import numpy
-from pyscf.lib.parameters import BOHR
+from pynexmd.lib.parameters import BOHR
 
 unknown = 1.999999
 

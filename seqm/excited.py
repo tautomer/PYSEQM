@@ -141,8 +141,6 @@ def Davidson(xi, precond, matvec, tol, nroots, maxcycle):
        if norm < tol:
            break
    
-   #
-       return None
     """
 
     # ref: JCP xx

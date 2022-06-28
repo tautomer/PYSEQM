@@ -36,3 +36,4 @@ from pynexmd import es   # electronic structure solver
 from pynexmd import md   # molecular dynamics driver
 
 
+from pynexmd import __config__

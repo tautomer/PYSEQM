@@ -9,7 +9,6 @@ import numpy as np
 #import torch
 
 #
-# the idea from pyscf
 class StreamObject(object):
 
     verbose = 0

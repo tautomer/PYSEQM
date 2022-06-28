@@ -167,6 +167,7 @@ class molecule(StreamObject):
         self.theory= 'AM1' # [DFT(NWchem), DFTB]
         self.unit = 'Ang'
         self.symmetry = False
+        self.device = 'numpy'
 
     def build(self, atom=None,
             basis = None,
@@ -174,7 +175,8 @@ class molecule(StreamObject):
             unit=None,
             symmetry=None,
             verbose = None,
-            charge=0, spin=0):
+            charge=0, spin=0,
+            device ='numpy'):
 
 
         if verbose is not None: self.verbose = verbose
@@ -184,6 +186,7 @@ class molecule(StreamObject):
         if atom is not None: self.atom = atom
         if charge is not None: self.charge = charge
         if spin != 0: self.spin = spin
+        self.device = device
 
         self._atom = self.format_atom(self.atom, unit=self.unit)
         print('test-atom=', self._atom)
@@ -198,5 +201,15 @@ class molecule(StreamObject):
 
     def format_atom(self, atom, origin=0, axes=None, unit='Ang'):
         return format_atom(atom, origin, axes, unit)
+
+    def int1e(self):
+
+        if self.device == 'torch':
+            return 
+        elif self.device == 'BML':
+            return None
+        else:
+            'using numpy'
+            return None
 
 
