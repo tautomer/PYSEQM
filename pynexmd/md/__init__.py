@@ -16,4 +16,5 @@
 #
 
 from pynexmd.md import md
+from pynexmd.md import nexmd
 

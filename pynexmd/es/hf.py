@@ -19,6 +19,7 @@ import os, sys
 from pynexmd import lib
 from pynexmd import mole
 from pynexmd import __config__
+import logging
 
 # For code compatibility in python-2 and python-3
 if sys.version_info >= (3,):
@@ -88,8 +89,9 @@ class HF(lib.StreamObject):
         self.nocc = None
         self.nvir = None
         self.solvent = None
-
         self.etot = 0.0
+
+        logging.debug('test: creating HF object')
 
     def scf(self):
 

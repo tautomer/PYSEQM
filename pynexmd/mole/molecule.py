@@ -1,5 +1,6 @@
 
 import os, sys
+import logging
 import numpy
 from pynexmd.data import elements
 from pynexmd.data.elements import ELEMENTS, ELEMENTS_PROTON, \
@@ -189,11 +190,10 @@ class molecule(StreamObject):
         self.device = device
 
         self._atom = self.format_atom(self.atom, unit=self.unit)
-        print('test-atom=', self._atom)
+        logging.debug('test-atom=', self._atom)
 
         self.nats = len(self._atom)
-        print('test-number of atoms', self.nats)
-
+        logging.debug('test-number of atoms', self.nats)
 
         return self
 

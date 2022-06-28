@@ -17,4 +17,6 @@
 
 from pynexmd.lib.module import StreamObject
 from pynexmd.lib import parameters
+from pynexmd.lib import logger
+
 param = parameters

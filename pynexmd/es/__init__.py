@@ -17,5 +17,3 @@
 
 from pynexmd.es import hf
 from pynexmd.es import tdhf
-
-
