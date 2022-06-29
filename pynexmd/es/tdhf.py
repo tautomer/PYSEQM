@@ -46,6 +46,15 @@ class TDA(lib.StreamObject):
         self.evals = None  # eigen values
         self.evecs = None  # eigenvectors
 
+    def kernel(self, mf):
+
+        hdiag = None # TODO
+        precond = self.gen_precond(hdiag)
+
+        converged, evals, evecs = davidson(x0, precond, matvec,
+                tol=self.tol, nroots = self.nstates, 
+                max_cycle=self.max_cycle)
+
     def gen_Lxi(self, mf):
         '''
         compute Ax or 
