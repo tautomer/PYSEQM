@@ -40,7 +40,7 @@ class Parser(torch.nn.Module):
         self.outercutoff = seqm_parameters['pair_outer_cutoff']
         self.elements = seqm_parameters['elements']
 
-    def forward(self, constansts, species, coordinates, *args, **kwargs):
+    def forward(self, constansts, mol, *args, **kwargs):
         """
         constants : instance of Class Constants
         species : atom types for atom in each molecules,
@@ -48,10 +48,18 @@ class Parser(torch.nn.Module):
         coordinates : atom position, shape (nmol, molsize, 3)
         charges: total charge for each molecule, shape (nmol,), 0 if None
         """
+        coordinates = mol.coordinates
+        species = mol.species
+
         device = coordinates.device
         dtype = coordinates.dtype
 
-        nmol, molsize = species.shape
+        if len(species.shape) > 1:
+            nmol, molsize = species.shape
+        else:
+            molsize = species.shape
+            nmol = 1
+
         nonblank = species>0
         n_real_atoms = torch.sum(nonblank)
 
@@ -68,7 +76,8 @@ class Parser(torch.nn.Module):
         n_charge = torch.sum(tore[species],dim=1).reshape(-1).type(torch.int64)
         if 'charges' in kwargs and torch.is_tensor(kwargs['charges']):
             n_charge += kwargs['charges'].reshape(-1).type(torch.int64)
-        nocc = n_charge//2
+        #nocc = n_charge//2
+        nocc = torch.div(n_charge, 2, rounding_mode='floor')
 
         if ((n_charge%2)==1).any():
             raise ValueError("Only closed shell system (with even number of electrons) are supported")
@@ -179,7 +188,7 @@ class Hamiltonian(torch.nn.Module):
         # 0: ignore gradient on density matrix from Hellmann Feymann Theorem,
         # 1: use recursive formula go back through scf loop
 
-    def forward(self, const, molsize, nHeavy, nHydro, nocc, Z, maskd, mask, atom_molid, pair_molid, idxi, idxj, ni,nj,xij,rij, parameters, P0=None):
+    def forward(self, const, mol, P0=None):
         """
         SCF loop
         const : Constants instance
@@ -205,6 +214,23 @@ class Hamiltonian(torch.nn.Module):
         w : two electron two center integrals
         v : eigenvectors of F
         """
+        molsize = mol.molsieze
+        nHeavy = mol.nHeavy
+        nHydro  = mol.nHydro
+        nocc = mol.nocc
+        Z = mol.Z
+        maskd = maskd
+        mask = mol.mask
+        atom_molid = mol.atom_molid
+        pair_molid = mol.pair_molid
+        idxi = mol.idxi
+        idxj = mol.idxj
+        ni = mol.ni
+        nj = mol.nj
+        xij = mol.xij
+        rij = mol.rij
+        parameters = mol.parameters 
+
         beta = torch.cat((parameters['beta_s'].unsqueeze(1), parameters['beta_p'].unsqueeze(1)),dim=1)
         if "Kbeta" in parameters:
             Kbeta = parameters["Kbeta"]
@@ -273,7 +299,6 @@ class Energy(torch.nn.Module):
         nHeavy, nHydro, nocc, \
         Z, maskd, atom_molid, \
         mask, pair_molid, ni, nj, idxi, idxj, xij, rij = self.parser(const, species, coordinates, *args, **kwargs)
-
         if callable(learned_parameters):
             adict = learned_parameters(species, coordinates)
             parameters = self.packpar(Z, learned_params = adict)    

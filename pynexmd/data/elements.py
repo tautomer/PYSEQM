@@ -30,6 +30,7 @@ ELEMENTS = [
     'Md', 'No', 'Lr', 'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds',
     'Rg', 'Cn', 'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og',
 ]
+
 NUC = dict(((x,i) for i,x in enumerate(ELEMENTS)))
 NUC.update((x.upper(),i) for i,x in enumerate(ELEMENTS))
 NUC['GHOST'] = 0
@@ -848,7 +849,7 @@ def _rm_digit(symb):
 _ELEMENTS_UPPER = dict((x.upper(),x) for x in ELEMENTS)
 _ELEMENTS_UPPER['GHOST'] = 'Ghost'
 
-def charge(symb_or_chg):
+def atom_charge(symb_or_chg):
     if isinstance(symb_or_chg, (str, unicode)):
         a = str(symb_or_chg.strip().upper())
         if (a[:5] == 'GHOST' or (a[0] == 'X' and a[:2] != 'XE')):

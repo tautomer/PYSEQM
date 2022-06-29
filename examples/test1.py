@@ -21,7 +21,7 @@ else:
     device = torch.device('cpu')
     print('cpu is used')
 
-species = torch.as_tensor([[8,6,1,1],[8,6,1,1],[8,8,6,0]],dtype=torch.int64, device=device)
+species = torch.as_tensor([[8,6,1,1]],dtype=torch.int64, device=device)
 
 print(species, len(species))
 
@@ -32,18 +32,6 @@ coordinates = torch.tensor([
                    [1.22732374,    0.0000,    0.0000],
                    [1.8194841064614802,    0.93941263319067747,    0.0000],
                    [1.8193342232738994,    -0.93951967178254525,    3.0565334533430606e-006]
-                  ],
-                  [
-                   [0.0000,    0.0000,    0.0000],
-                   [1.22732374,    0.0000,    0.0000],
-                   [1.8194841064614802,    0.93941263319067747,    0.0000],
-                   [1.8193342232738994,    -0.93951967178254525,    3.0565334533430606e-006]
-                  ],
-                  [
-                   [0.0000,    0.0000,    0.0000],
-                   [1.22732374,    0.0000,    0.0000],
-                   [1.8194841064614802,    0.93941263319067747,    0.0000],
-                   [0.0,0.0,0.0]
                   ]
                  ], device=device)
 
@@ -53,7 +41,6 @@ elements = [0]+sorted(set(species.reshape(-1).tolist()))
 
 print('test-coordinates=', coordinates)
 print(elements)
-sys.exit()
 
 seqm_parameters = {
                    'method' : 'AM1',  # AM1, MNDO, PM#

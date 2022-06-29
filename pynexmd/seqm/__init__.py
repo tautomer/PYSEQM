@@ -15,26 +15,6 @@
 # Author: Yu Zhang zhy@lanl.gov
 #
 
-'''
-*****************************************************
-PyNEXMD: Python-based Non-adiabatic EXcited-state 
-         Molecular Dynamics simulations
-*****************************************************
+from pynexmd.seqm import seqm_basics
+from pynexmd.seqm import seqm_functions
 
-'''
-__version__ = '1.0'
-
-import os
-import sys
-
-PYNEXMD_PATH = os.getenv('PYNEXMD_PATH')
-
-import numpy as np
-from pynexmd import lib  # low-level mathematical libs (pytorch, bml, petsc, etc)
-from pynexmd import mole # molecular module
-from pynexmd import es   # electronic structure solver
-from pynexmd import md   # molecular dynamics driver
-from pynexmd import seqm # seqm prameters, fock matrix generations
-
-
-from pynexmd import __config__

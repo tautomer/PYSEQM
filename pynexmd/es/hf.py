@@ -40,7 +40,6 @@ def energy_tot():
 def get_hcore():
 
 
-
     return None
 
 
@@ -90,12 +89,61 @@ class HF(lib.StreamObject):
         self.nvir = None
         self.solvent = None
         self.etot = 0.0
+        self.maxcycle = mol.maxcycle
+        self.mixing = 0.9
+        self.device = mol.device
 
+        logging.warning('test: creating HF object')
         logging.debug('test: creating HF object')
+
+        # gen initial guess (TODO)
+        self.P = None
 
     def scf(self):
 
-        return None  
+        '''
+        scf loop
+        '''
+        converged = False
+        iteration = 0
+        e = None
+        evecs = None
+
+        while( not converged and iteration < self.maxcycle):
+            # construct 
+            F = self.get_fock(P)
+
+            # diag F get evals and evecs
+            evals, evecs = self.diag(F)
+
+            # get density matrix
+            Pnew = self.gen_denmat(evecs)
+
+            P = self.mixing(P, Pnew)
+
+            iteration += 1
+
+
+    def diag(self, F):
+        '''
+        diagonalize Fock matrix
+        '''
+
+        evals = None
+        evecs = None
+
+        return evals, evecs
+
+    def mixing(self, Pold, P):
+        '''
+        mixer:
+        1) linear
+        2) diis
+        '''
+
+        Pnew = self.mixing * Pold + (1.0-self.mixing) * P
+
+        return Pnew
 
     def get_hcore(self):
 
@@ -122,10 +170,22 @@ class HF(lib.StreamObject):
 class UHF(HF):
 
     def __init__(self, mol):
+        '''
+        build UHF based on HF class
+        '''
         hf.HF.__init__(self, mol)
+
         self.nelec = None
         self.nalpha = None
         self.nbeta = None
+        self.spin = mol.spin
+
+        # according to charge and spin get nalpha and nbeta
+
+
+        #initial guess 
+        self.Pa = None
+        self.Pb = None
 
     def s2(self):
         'return <s^2>'
