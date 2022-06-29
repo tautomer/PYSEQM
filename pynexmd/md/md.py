@@ -26,41 +26,33 @@ class MD(lib.StreamObject):
     '''
     '''
     def __init__(self, 
-            theory, 
-            coordinates, 
-            seqm_paramters = None,
-            init_vec = None,
+            mol,      # molecule 
+            esdriver, # electronic structure driver
             *args,
             ):
         """
-        theory: chose the theory level for electronic structure:
-                semi-empirical, DFT, CCSD (pySCF)
-        coordinates: coordinates of the system of interest
-        mdtype: "SH" (default), "AIMC", "Ehrenfest"
+        esdriver: chose the driver for electronic structure:
+                semi-empirical, DFT, CCSD (pySCF), QED-CCSD, HIPNN, etc.
         args: dicitonary of other arguments: 
-              1) number of excited states
-              2) number of classical steps
-              3) mdtypes 
-              4) classical time step
-              5) classic/quantum time ration
-              6) decoherence type
-              7) crossing check
+              1) classical time step
+              2) thermostat
+              3) number of classical steps
               ...
-              20) verbose
         """
 
 
-        self.theory = theory
-        self.coords = coordinates
-        self.init_vec = init_vec
-        
-        #self.mdtype = mdtype
+        self.mol = mol
+        self.esdriver = esdriver
+        #....
 
-    def verlet_nve(self):
+    def verlet(self):
 
         return None
 
-    def verlet_nvt(self):
+    def thermostat(self, vel):
+        '''
+        thermostate, rescale velocities
+        '''
 
         return None
 

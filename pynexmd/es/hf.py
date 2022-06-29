@@ -180,8 +180,7 @@ class UHF(HF):
         self.nbeta = None
         self.spin = mol.spin
 
-        # according to charge and spin get nalpha and nbeta
-
+        # get nalpha and nbeta (TODO) according to charge and spin multi 
 
         #initial guess 
         self.Pa = None

@@ -4,30 +4,31 @@ from .md import MD
 
 class NEXMD(MD):
     def __init__(self, 
-            theory, 
-            coordinates, 
-            seqm_paramters = None,
-            init_vec = None,
+            mol,      # molecule 
+            mdtype,   # TSH, MCE, AIMC, path-integral, etc.
+            esdriver, # electronic structure driver
             *args,
             ):
         """
-        theory: chose the theory level for electronic structure:
-                semi-empirical, DFT, CCSD (pySCF)
-        coordinates: coordinates of the system of interest
+        esdriver: chose the driver for electronic structure:
+                semi-empirical, DFT, CCSD (pySCF), QED-CCSD, HIPNN, etc.
         mdtype: "SH" (default), "AIMC", "Ehrenfest"
         args: dicitonary of other arguments: 
-              1) number of excited states
-              2) number of classical steps
-              3) mdtypes 
-              4) classical time step
-              5) classic/quantum time ration
-              6) decoherence type
-              7) crossing check
+              1) classical time step
+              2) thermostat
+              3) number of classical steps
+              4) number of excited states
+              5) mdtypes 
+              6) classical time step
+              7) classic/quantum time ration
+              8) decoherence type
+              9) crossing check
+              10) verbose
               ...
-              20) verbose
         """
 
         super().__init__()
+        self.mdtype = mdtype
 
 
     def propagation(self):
