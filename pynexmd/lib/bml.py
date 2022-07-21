@@ -1,3 +1,4 @@
+
 # Copyright 2022-20xx  The PyNEXMD Developers. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +16,8 @@
 # Author: Yu Zhang zhy@lanl.gov
 #
 
-from pynexmd.lib.module import StreamObject
-from pynexmd.lib import parameters
-from pynexmd.lib import logger
-from pynexmd.lib import matlib
+import numpy 
+import os, sys
 
-param = parameters
+# TODO bml interface, compile c-bml as lib
+

@@ -5,6 +5,24 @@ import torch
 import numpy as np
 
 #TODO
+def einsum(subscripts, *tensors, **kwargs):
+
+    '''
+    
+    torch-based einsum (TOD)
+    Perform a more efficient einsum via torch
+    
+    https://pytorch.org/docs/stable/generated/torch.einsum.html
+    
+    The torch.einsum does not optimize the given experssion.
+    This lib is to combine opt_einsum ( (https://optimized-einsum.readthedocs.io/en/stable/) 
+    to optimize thesum
+    '''
+
+    out = None
+
+    return out
+
 def dot_product(A,B):
 
     '''

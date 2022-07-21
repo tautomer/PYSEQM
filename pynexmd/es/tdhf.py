@@ -41,6 +41,7 @@ class TDA(lib.StreamObject):
         self.mol = mf.mol
         self.solvent = mf.solvent
         self.mf = mf
+        self.nstates = nstates
 
         self.converged = None
         self.evals = None  # eigen values
@@ -104,6 +105,24 @@ class TDA(lib.StreamObject):
             A[abs(A)<1.e-8] = 1.e-8
             return x / A
         return precond
+
+    def forces(self):
+
+        return None
+
+    def get_nact(self):
+
+        nact = np.zeros((self,nstates, self,nstates))
+        # return NAcs Matrix
+        for i in range(self.nstates):
+            for j in range(i+1, nstates):
+                nact[i,j] = self.nact_ij(i,j)
+                nact[j,i] = - nact[i,j]
+
+    def nact_ij(self, i, j):
+
+        return None
+
 
 class TDHF(TDA):
 

@@ -1,0 +1,18 @@
+
+
+TODO list:
+1) move current seqm functions (overlap/Fock matrix generation, force, etc.) into molecule modules (pynexmd/mole/molecule.py)
+2) move mathematical operations (matrix-vector, matrix-matrix, and tensor production) into lib/mathlib (Yu and ?)
+3) TDHF module: energies and forces (Yu and Xinyang). 
+   3b)In long term: spin-flip and spin-complete versions of CIS are to be implemented
+4) New MD module: move MD integration into MD modules (?)
+5) NAMD module and AIMC: (Victor and Yu?)
+6) mathlib: write an optimized einsum based on numpy.einsum and torch.einsum (Yu and ?)
+6) logger system (?)
+
+
+How to contribute:
+ 1) fork the branch
+ 2) make changes in the forked branch
+ 3) after new functions are tested, send pull request (PR) 
+    !!!DON'T directly push changes into upsream. New implementation should only be merged after a review.

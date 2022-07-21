@@ -12,12 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Author: Yu Zhang zhy@lanl.gov
+# Author: xx
 #
 
-from pynexmd.lib.module import StreamObject
-from pynexmd.lib import parameters
-from pynexmd.lib import logger
-from pynexmd.lib import matlib
+import numpy
+import os, sys
 
-param = parameters
+from pynexmd import lib
+from pynexmd import mole
+from pynexmd import __config__
+
+#pyscf is required
+class pyscf_driver(lib.StreamObject):
+    '''
+    '''
+
+    def __init(self, mol):
+
+        return None
+

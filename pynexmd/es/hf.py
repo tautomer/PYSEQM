@@ -166,6 +166,9 @@ class HF(lib.StreamObject):
         return self.etot
         # else run scf
 
+    def forces(self):
+
+        return None
 
 class UHF(HF):
 

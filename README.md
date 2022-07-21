@@ -1,6 +1,11 @@
 # [PYNEXMD: PYthon-based non-adiabatic molecular dynamics package](https://github.com/lanl/PYNEXMD)
 
-[PYNEXMD](https://github.com/lanl/PYNEXMD) is a PYthon-based Nonadiabatic EXcited-State Molecular Dynamics package that leverages the [PyTorch](http://pytorch.org) and BML library for off-loading caculations on GPUs and/or heterogeneous exascale computing facilities. It provides build-in Semi-Empirical Quantum Mechanics method for electronic structures and interface to other first-principles packages (DFTB, PYSCF). It provides built-in interfaces for machine learning and efficient molecular dynamic engines with GPU supported. Several molecular Adiabatic and Non-adiabatic dynamics algorithms are implemented for facilitating dynamic simulations, inlcuding orginal and Extended Lagrangian Born-Oppenheimer Molecular Dynamics, geometric optimization, trajectory surface hopping, ab-initio multiple cloning, Ehrenfest dynamics.  
+[PYNEXMD](https://github.com/lanl/PYNEXMD) is a PYthon-based Nonadiabatic EXcited-State Molecular Dynamics package that leverages the [PyTorch](http://pytorch.org) and BML library for off-loading caculations on GPUs and/or heterogeneous exascale computing facilities. 
+It provides build-in Semi-Empirical Quantum Mechanics method for electronic structures and interface to other first-principles packages (DFTB, PYSCF). 
+Besides, Quantum algorithms for electronic structure, including VQE, PermVQE[], ClusterVQE[], and Qdavidson[], are also included. 
+It provides built-in interfaces for machine learning and efficient molecular dynamic engines with GPU supported. 
+Several molecular Adiabatic and Non-adiabatic dynamics algorithms are implemented for facilitating dynamic simulations, 
+inlcuding orginal and Extended Lagrangian Born-Oppenheimer Molecular Dynamics, geometric optimization, trajectory surface hopping, ab-initio multiple cloning, Ehrenfest dynamics.  
 
 <hr/>
 
@@ -8,13 +13,15 @@
 
 * Interface with machine learning (ML) framework like [HIPNN](https://aip.scitation.org/doi/abs/10.1063/1.5011181) for ML applications and development.
 * GPU-supported Molecular Dynamics Engine
-* Off-load on heterogeneous exascale computing architecture via BML lib
+* Off-load on heterogeneous exascale computing architecture via BML lib (TODO)
 * Efficient expansion algorithm [SP2](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.66.155115) for generating density matrix
 * Stable and Efficient Extended Lagrangian Born Oppenheimer Molecular Dynamics ([XL-BOMD](https://aip.scitation.org/doi/full/10.1063/1.3148075))
-* Trajectory surface hopping 
-* Ab-initio multiple cloning
-* Light-matter interaction
-* Time-dependent density functional tight-binding 
+* Trajectory surface hopping (TODO)
+* Ab-initio multiple cloning (TODO)
+* Light-matter interaction (TODO):  QED-CCSD, QED-CCSD (to be mered)
+* Time-dependent density functional tight-binding (via DFTB+ lib, TODO)
+* TDDFT (via Pyscf, TODO)
+* Quantum algorithms for electronic structure (VQE, QDavidson, PermVQE, ClusterVQE) (To be merged)
 
 ## Installation:
 

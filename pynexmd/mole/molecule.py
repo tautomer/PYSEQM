@@ -240,14 +240,25 @@ class molecule(StreamObject):
         #parser is not needed here, just use it to get Z and create "learned" parameters
         #prepare a fake learned parameters: learnedpar
         self.parser = Parser(self.seqm_parameters).to(device)
+
+        # these variables need to be rearranged
         self.nmol, self.molsize, \
         self.nHeavy, self.nHydro, self.nocc, \
         self.Z, self.maskd, self.atom_molid, \
         self.mask, self.pair_molid, self.ni, self.nj, \
         self.idxi, self.idxj, self.xij, self.rij = self.parser(self.const, self)
 
-        print('test-nocc', self.nocc)
 
+        self.params = params(method=seqm_parameters['method'],
+                elements=seqm_parameters['elements'],
+                root_dir=seqm_parameters['parameter_file_dir'],
+                parameters=seqm_parameters['learned']).to(device)
+        
+        self.params, =self.paramsp[Z].transpose(0,1).contiguous()
+        self.params.requires_grad_(True)
+        self.learnedpar = {'U_ss': self.params}
+        
+        print('test-nocc', self.nocc)
 
         return self
 
